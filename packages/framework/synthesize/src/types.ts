@@ -57,6 +57,15 @@ export type FluidObjectProvider<T extends keyof IFluidObject> =
     | ((dependencyContainer: DependencyContainer) => Promise<NonNullableFluidObject<T>>);
 
 /**
+ * This is a condensed version of Record that requires the object has all
+ * the IFluidObject properties as its type mapped to a provider of an
+ * object that implements the property.
+ */
+export type FluidObjectProviderGroup<T extends keyof IFluidObject> = {
+    readonly [P in T]?: FluidObjectProvider<T>;
+};
+
+/**
  * ProviderEntry is a mapping of the type to the Provider
  */
 export interface ProviderEntry<T extends keyof IFluidObject> {
